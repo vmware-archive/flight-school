@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Date: Fri, 19 Feb 2016 23:47:30 GMT
+Server: Apache/2.2.15 (Red Hat)
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: CFID=182906332; Expires=Sun, 11-Feb-2046 23:47:30 GMT; Path=/; HttpOnly
+Set-Cookie: CFTOKEN=f49d6bbee61af81d-D74FAEE6-AF68-AFE5-3A724977A5DC1881; Expires=Sun, 11-Feb-2046 23:47:30 GMT; Path=/; HttpOnly
+Set-Cookie: JSESSIONID=201F19C1D228624879FDB1C8FBE09C97.websvc; Path=/; HttpOnly
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+Version-Requested: Any
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: application/json;charset=UTF-8
+Set-Cookie: BIGipServerpool_prd_chh_cf_tr_http=1958916763.20480.0000; path=/
+
+{"delay":"false","IATA":"JFK","state":"New York","name":"John F Kennedy International","weather":{"visibility":10.00,"weather":"Overcast","meta":{"credit":"NOAA's National Weather Service","updated":"5:51 PM Local","url":"http://weather.gov/"},"temp":"36.0 F (2.2 C)","wind":"Southeast at 9.2mph"},"ICAO":"KJFK","city":"New York","status":{"reason":"No known delays for this airport.","closureBegin":"","endTime":"","minDelay":"","avgDelay":"","maxDelay":"","closureEnd":"","trend":"","type":""}} 
