@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flight School</title>
+  </head>
+  <body>
+    Current status of airports:
+
+    <ul>
+      <% airports.each do |airport| %>
+        <li><a href="/airports/<%= airport %>"><%= airport %></a></li>
+      <% end %>
+    </ul>
+  </body>
+</html>
