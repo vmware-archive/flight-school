@@ -1,4 +1,5 @@
-require 'sinatra/base'
+require "sinatra/base"
+require "sinatra/json"
 
 require_relative "radar"
 
@@ -14,6 +15,18 @@ class FlightSchool < Sinatra::Base
     rescue Radar::NoSuchAirport
       status 404
       erb :no_airport
+    end
+  end
+
+  get "/api/airports/:code" do
+    begin
+      airport_status = Radar.status_for(params[:code])
+      json code: airport_status.code,
+        name: airport_status.name,
+        city: airport_status.city,
+        weather: airport_status.weather
+    rescue Radar::NoSuchAirport
+      status 404
     end
   end
 end
