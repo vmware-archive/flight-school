@@ -6,7 +6,7 @@ resources:
     branch: master
 
 jobs:
-- name: test-app
+- name: test-app-jeff
   plan:
   - get: flight-school
     trigger: true
