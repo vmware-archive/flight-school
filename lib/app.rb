@@ -18,6 +18,8 @@ class FlightSchool < Sinatra::Base
     end
   end
 
+
+
   get "/api/airports/:code" do
     begin
       airport_status = Radar.status_for(params[:code])
