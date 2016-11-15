@@ -16,7 +16,7 @@ jobs:
 - name: test-app
   plan:
   - get: flight-school-pr
-    trigger: 
+    trigger: true
   - put: flight-school-pr
     params:
       path: flight-school-pr
