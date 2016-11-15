@@ -22,4 +22,4 @@ jobs:
       path: flight-school-pr
       status: pending
   - task: tests
-    file: flight-school/build.yml
+    file: flight-school/test-task.yml
