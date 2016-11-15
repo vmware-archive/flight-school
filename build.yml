@@ -11,3 +11,14 @@ inputs:
 
 run:
   path: ./flight-school/ci/test.sh
+
+on_success:
+  put: flight-school-pr
+  params:
+    path: flight-school-pr
+    status: success
+on_failure:
+  put: flight-school-pr
+  params:
+    path: flight-school-pr
+    status: failure

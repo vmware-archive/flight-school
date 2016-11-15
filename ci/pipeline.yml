@@ -1,14 +1,25 @@
-resources:
-- name: flight-school
-  type: git
+resource_types:
+- name: pull-request
+  type: docker-image
   source:
-    uri: https://github.com/aguimaraes/flight-school
-    branch: master
+    repository: aguimaraes/flight-school
+
+resources:
+
+- name: flight-school-pr
+  type: pull-request
+  source:
+    access_token: {{access_token}}
+    repo: aguimaraes/flight-school
         
 jobs:
 - name: test-app
   plan:
-  - get: flight-school
-    trigger: true
+  - get: flight-school-pr
+    trigger: 
+  - put: flight-school-pr
+    params:
+      path: flight-school-pr
+      status: pending
   - task: tests
     file: flight-school/build.yml
