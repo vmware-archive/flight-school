@@ -1,4 +1,8 @@
 RSpec.configure do |config|
+  
+  config.filter_run_including foo: :bar
+  config.silence_filter_announcements = true
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
