@@ -1,19 +1,33 @@
 resource_types:
-- name: git-branch-heads
+- name: pull-request
   type: docker-image
-  source: {repository: vito/git-branch-heads-resource}
+  source:
+    repository: jtarchie/pr
 
 resources:
-- name: flight-school
-  type: git-branch-heads
-  source:
-    uri: https://github.com/nimerritt/flight-school
+  - name: git-pull-requests
+    type: pull-request
+    source:
+      access_token: {{github-access-token}}
+      repo: https://github.com/nimerritt/flight-school
+      base: master
 
 jobs:
-- name: test-app
+- name: pr tests
   plan:
-  - get: flight-school
+  - get: git-pull-requests
     trigger: true
+    version: every
   - task: tests
     file: flight-school/ci/build.yml
     version: every
+    on_success:
+      put: git-pull-requests
+      params:
+        path: git-pull-requests
+        status: success
+    on_failure:
+      put: git-pull-requests
+      params:
+        path: git-pull-requests
+        status: failure
