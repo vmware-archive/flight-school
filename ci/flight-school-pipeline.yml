@@ -13,6 +13,7 @@ jobs:
 - name: test-app
   plan:
   - get: flight-school
+    trigger: true
   - task: tests
     file: flight-school/ci/build.yml
     version: every
