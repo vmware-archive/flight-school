@@ -1,0 +1,56 @@
+resource_types:
+- name: pull-request
+  type: docker-image
+  source:
+    repository: jtarchie/pr
+
+resources:
+- name: flight-school
+  type: git
+  source:
+    uri: https://github.com/paul-schwendenman/flight-school
+    branch: master
+- name: repo
+  type: pull-request
+  source:
+    access_token: {{github-access-token}}
+    private_key: {{github-private-key}}
+    repo: paul-schwendenman/flight-school
+
+jobs:
+- name: test pull request
+  plan:
+  - get: repo
+    trigger: true
+  - put: repo
+    params:
+      path: repo
+      status: pending
+  - task: do something with git
+    config:
+      platform: linux
+      image: docker:///concourse/git-resource
+      run:
+        path: sh
+        args:
+        - -c
+        - cd repo && git --no-pager show
+      inputs:
+      - name: repo
+        path: ""
+    on_success:
+      put: repo
+      params:
+        path: repo
+        status: success
+    on_failure:
+      put: repo
+      params:
+        path: repo
+        status: failure
+- name: test-app
+  plan:
+  - get: flight-school
+    trigger: true
+  - task: tests
+    file: flight-school/build.yml
