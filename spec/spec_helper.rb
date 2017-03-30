@@ -1,6 +1,5 @@
 RSpec.configure do |config|
   
-  config.filter_run_including foo: :bar
   config.silence_filter_announcements = true
 
   config.expect_with :rspec do |expectations|
