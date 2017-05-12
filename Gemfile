@@ -1,10 +1,11 @@
 source "https://rubygems.org"
 
-gem "sinatra", "~> 1.4"
-gem "sinatra-contrib", "~> 1.4"
+ruby '2.4.1'
+gem "sinatra"
+gem "sinatra-contrib"
 
 group :test do
-  gem "rspec", "~> 3.0"
-  gem "rack-test", "~> 0.6"
-  gem "webmock", "~> 1.24"
+  gem "rspec"
+  gem "rack-test"
+  gem "webmock"
 end
