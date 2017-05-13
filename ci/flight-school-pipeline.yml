@@ -1,0 +1,33 @@
+resource_types:
+- name: pull-request
+  type: docker-image
+  source:
+    repository: jtarchie/pr
+
+resources:
+  - name: git-pull-requests
+    type: pull-request
+    source:
+      access_token: {{github-access-token}}
+      repo: https://github.com/nimerritt/flight-school
+      base: master
+
+jobs:
+- name: pr tests
+  plan:
+  - get: git-pull-requests
+    trigger: true
+    version: every
+  - task: tests
+    file: flight-school/ci/build.yml
+    version: every
+    on_success:
+      put: git-pull-requests
+      params:
+        path: git-pull-requests
+        status: success
+    on_failure:
+      put: git-pull-requests
+      params:
+        path: git-pull-requests
+        status: failure
