@@ -1,0 +1,38 @@
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+
+resources:
+- name: flight-school
+  type: git
+  source:
+    uri: https://github.com/jeffdecola/flight-school
+    branch: master
+- name: slack-alert
+  type: slack-notification
+  source:
+    url:{{slack_url}} 
+
+jobs:
+- name: test-app-jeff
+  plan:
+  - get: flight-school
+    trigger: true
+  - task: tests
+    file: flight-school/build.yml
+    on_success:
+      put: slack-alert
+      params:
+        channel: '#general'
+        text: |
+          This works!
+    on_failure:
+      put: slack-alert
+      params:
+        channel: '#general'
+        text: |
+          Something went wrong!
+
