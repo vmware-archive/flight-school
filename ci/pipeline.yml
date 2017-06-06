@@ -1,0 +1,25 @@
+resource_types:
+- name: pull-request
+  type: docker-image
+  source:
+    repository: aguimaraes/flight-school
+
+resources:
+
+- name: flight-school-pr
+  type: pull-request
+  source:
+    access_token: {{access_token}}
+    repo: aguimaraes/flight-school
+        
+jobs:
+- name: test-app
+  plan:
+  - get: flight-school-pr
+    trigger: true
+  - put: flight-school-pr
+    params:
+      path: flight-school-pr
+      status: pending
+  - task: tests
+    file: flight-school/test-task.yml
