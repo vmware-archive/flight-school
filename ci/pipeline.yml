@@ -4,6 +4,7 @@ resources:
   source:
     uri: https://github.com/SCLInternet/flight-school
     branch: master
+  webhook_token: fuckshitbolloks123
 
 jobs:
 - name: test-app

@@ -10,4 +10,3 @@ inputs:
 run:
   path: ./flight-school/ci/test.sh
 
-
