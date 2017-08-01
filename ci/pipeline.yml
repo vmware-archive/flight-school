@@ -1,0 +1,14 @@
+resources:
+- name: flight-school
+  type: git
+  source:
+    uri: https://github.com/SCLInternet/flight-school
+    branch: master
+
+jobs:
+- name: test-app
+  plan:
+  - get: flight-school
+    trigger: true
+  - task: tests
+    file: flight-school/build.yml
