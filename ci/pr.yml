@@ -1,0 +1,44 @@
+resource_types:
+- name: pull-request
+  type: docker-image
+  source:
+    uri: https://github.com/testing-concourse/flight-school
+    repository: testing-concourse/flight-school
+
+resources:
+- name: flight-school
+  type: git
+  source:
+    uri: https://github.com/testing-concourse/flight-school
+    branch: master
+- name: flight-school-pr
+  type: pull-request
+  source:
+    repo: testing-concourse/flight-school
+
+jobs:
+- name: test-app
+  plan:
+  - get: flight-school
+    trigger: true
+  - task: tests
+    file: flight-school/build.yml
+- name: flight-school-pr-unit
+  plan:
+  - get: flight-school-pr
+  - put: flight-school-pr
+    params:
+      path: flight-school-pr
+      status: pending
+  - task: unit
+    file: flight-school-pr/ci/unit.yml
+    on_success:
+      put: flight-school-pr
+      params:
+        path: flight-school-pr
+        status: success
+    on_failure:
+      put: flight-school-pr
+      params:
+        path: flight-school-pr
+        status: failure
